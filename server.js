@@ -1,7 +1,7 @@
 const express = require('express');
-const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
+const html = require('./routes/htmlroutes');
 // Import the router and api routes
 const api = require('./routes/apiroutes');
 
@@ -12,6 +12,7 @@ app.use(express.static('public'));
 // Send all the requests that begin with /api to the apiroutes.js in the routes folder
 app.use('/api', api);
 
+app.use('/', html);
 // // This view route is a GET route for the homepage
 // app.get('/', (req, res) =>
 //   res.sendFile(path.join(__dirname, '/public/index.html'))
