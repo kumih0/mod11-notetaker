@@ -1,20 +1,20 @@
-const notes = require('express').Router();
+const router = require('express').Router();
 
 // Helper function to generate unique ids
 const uuid = require('../helpers/uuid');
-
+//Store.addNote(req.body)
 // Helper functions for reading and writing to the JSON file
 const { readFromFile, readAndAppend } = require('../helpers/store');
 
 // GET Route for retrieving all saved active notes
- notes.get('/', (req, res) => {
+ router.get('/', (req, res) => {
   console.info(`${req.method} request received for notes`);
 
   readFromFile('./db/db.json').then((data) => res.json(JSON.parse(data)));
 });
 
 // POST Route for saving note
-notes.post('/', (req, res) => {
+router.post('/', (req, res) => {
   // Log that a POST request was received
   console.info(`${req.method} request received to save note`);
 
@@ -42,4 +42,4 @@ notes.post('/', (req, res) => {
   }
 });
 
-module.exports = notes;
+module.exports = router;

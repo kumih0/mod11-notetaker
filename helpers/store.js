@@ -1,8 +1,29 @@
 const fs = require('fs');
 const util = require('util');
+const { v4: uuidv4 } = require('uuid');
+// uuidv4();
 
 // Promise version of fs.readFile
 const readFromFile = util.promisify(fs.readFile);
+const writeFile = util.promisify(fs.writeFile);
+
+class Store{
+  read(){
+    return readFromFile('db/db.json', 'utf-8');
+  }
+  write(note){
+    return writeFile('db/db.json', JSON.stringify(note));
+  }
+  addNote(note){
+    const { title, text } = note;
+    const newNote = {
+      title,
+      text,
+      note_id: uuidv4(),
+    }
+    //getnotes method> grabbing dbjson obj and push new note into array, stringfy the new array and put it back w writefile method
+  }
+}
 /**
  *  Function to write data to the JSON file given a destination and some content
  *  @param {string} destination The file you want to write to.
