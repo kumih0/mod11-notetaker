@@ -1,8 +1,8 @@
 const router = require('express').Router();
 
-// Helper function to generate unique ids
-const uuid = require('../helpers/uuid');
 //Store.addNote(req.body)
+
+
 // Helper functions for reading and writing to the JSON file
 const { readFromFile, readAndAppend } = require('../helpers/store');
 
