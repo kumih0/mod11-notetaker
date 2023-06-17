@@ -1,4 +1,4 @@
-const { error } = require('console');
+//this is where i am storing all my methods in a class constr. to make mnodularization easier and make sense to me
 const fs = require('fs');
 const util = require('util');
 const { v4: uuidv4 } = require('uuid');
