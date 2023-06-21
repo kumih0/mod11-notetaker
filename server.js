@@ -1,28 +1,27 @@
 const express = require('express');
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 //importing the htmlroutes
-const html = require('./routes/htmlroutes');
+const path = require('path');
+const html = require('./routes/htmlRoutes');
 // Import the router and api routes
-const api = require('./routes/apiroutes');
+const api = require('./routes/apiRoutes');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
-
 // Send all the requests that begin with /api to the apiroutes.js in the routes folder
 app.use('/api', api);
-// app.use('/*', html);
-
-// // This view route is a GET route for the homepage
-// app.get('/', (req, res) =>
-//   res.sendFile(path.join(__dirname, '/public/index.html'))
+app.use('/*', html);
+// // GET /notes -> sends note.html file
+// app.get('/notes', (req, res) =>
+//   res.sendFile(path.join(__dirname, '/public/notes.html'))
 // );
 
-// // This view route is a GET route for the notes page
-// app.get('/api/notes', (req, res) =>
-//   res.sendFile(path.join(__dirname, '/public/notes.html'))
+// // GET * -> sends index.html file
+// app.get('*', (req, res) =>
+//   res.sendFile(path.join(__dirname, '/public/index.html'))
 // );
 
 app.listen(PORT, () =>

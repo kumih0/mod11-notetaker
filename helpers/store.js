@@ -9,12 +9,12 @@ const { v4: uuidv4 } = require('uuid');
 const readFile = util.promisify(fs.readFile);
 const writeFile = util.promisify(fs.writeFile);
 
-class Store{
+class Store {
   read(){
     return readFile('db/db.json', 'utf-8');
   }
   write(note){
-    return writeFile('db/db.json', JSON.stringify(note), (err) => err ? console.error(err) : console.info(`Note written to db.json`));
+    return writeFile('db/db.json', JSON.stringify(note), (err) => err ? console.log(err) : console.info(`Note written to db.json`));
   }
   addNote(note){
     const { title, text } = note;
@@ -23,7 +23,7 @@ class Store{
       text,
       note_id: uuidv4(),//<-calling the uuid npm boi to run when that new note obj is made
     }
-
+    console.log(newNote);
     //getnotes method> grabbing dbjson obj and push new note into array, stringfy the new array (done inside write method) and put it back w write method
     const getNotes = () => {
       return JSON.parse(read());
@@ -34,7 +34,7 @@ class Store{
   }
   // deleteNote
 }
-// /** I DO NOT UNDERSTAND ANY OF THIS SSSSSSSS SEEMS LIKE YOU ARE
+
 //  *  Function to write data to the JSON file given a destination and some content
 //  *  @param {string} destination The file you want to write to.
 //  *  @param {object} content The content you want to write to the file.
