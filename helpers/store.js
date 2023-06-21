@@ -62,4 +62,4 @@ class Store{
 //   });
 // };
 
-module.exports = Store;
+module.exports = { readFile, writeFile, Store };

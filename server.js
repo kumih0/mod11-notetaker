@@ -10,10 +10,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
+
 // Send all the requests that begin with /api to the apiroutes.js in the routes folder
 app.use('/api', api);
+// app.use('/*', html);
 
-app.use('/', html);
 // // This view route is a GET route for the homepage
 // app.get('/', (req, res) =>
 //   res.sendFile(path.join(__dirname, '/public/index.html'))

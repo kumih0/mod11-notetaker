@@ -5,12 +5,12 @@ const path = require('path');
 
 //GET /notes -> sends note.html file
 router.get('/notes', (req, res) => {
-    res.sendFile(path.join(__dirname, '/public/notes.html'));
+    res.sendFile(path.join(__dirname, '../public/notes.html'));
 });
 
 //GET * -> sends index.html file
 router.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '/public/index.html'));
+    res.sendFile(path.join(__dirname, '../public/index.html'));
 });
 
 //export html files

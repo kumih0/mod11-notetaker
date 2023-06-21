@@ -1,17 +1,18 @@
+// const express = require('express');
 const router = require('express').Router();
 //Store.addNote(req.body)
 // import that sweet sweet store class
-const Store = require('../helpers/store');
+const { readFile, writeFile, Store } = require('../helpers/store');
 
-// GET Route for retrieving all saved active notes
- router.get('/notes', (req, res) => {
+// GET Route for retrieving all saved notes
+ router.get('/api/notes', (req, res) => {
   console.info(`${req.method} request received for notes`);
-
-//   readFromFile('./db/db.json').then((data) => res.json(JSON.parse(data)));
+//using readfile method from store export to read db.json file and spit out the json parsed data
+  Store.read().then((data) => res.json(JSON.parse(data)));
 });
 
 // POST Route for saving note
-router.post('/', (req, res) => {
+router.post('/api/notes', (req, res) => {
 //   // Log that a POST request was received
   console.info(`${req.method} request received to save note`);
 
@@ -38,7 +39,7 @@ if (req.body.title || req.body.text) {
     }
     res.json(response);
   } else {
-    res.json('Error in saving note');
+    res.json('what the heck r u doin! error in savin note!');
   }
 });
 
