@@ -32,7 +32,7 @@ router.post('/notes', (req, res) => {
 //     readAndAppend(newNote, './db/db.json');
 if (req.body.title || req.body.text) {
     //saving newnote obj created in store class addnote method to variable. addnote method writes in db.json file but returns the newnote obj BOOM BABY
-    const newNote = Store.addNote(req.body);
+    const newNote =  Store.addNote(req.body);
 
     const response = {
       status: 'u done it',

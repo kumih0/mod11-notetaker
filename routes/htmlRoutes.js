@@ -10,9 +10,9 @@ router.get('/notes', (req, res) => {
 });
 
 //GET * -> sends index.html file
-router.get('/*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/index.html'), (err) => err ? console.log(err, 'u broke it u dummy') : console.log('u did it'));
-});
+// router.get('/*', (req, res) => {
+//     res.sendFile(path.join(__dirname, '../public/index.html'), (err) => err ? console.log(err, 'u broke it u dummy') : console.log('u did it'));
+// });
 
 //export html files
 module.exports = router;
