@@ -2,13 +2,14 @@ const router = require('express').Router();
 // import store class
 const Store = require('../helpers/store');
 
-
 // GET Route for retrieving all saved notes
  router.get('/notes', (req, res) => {
   console.info(`${req.method} request received for notes`);
+  
 //using readfile method from store export to read db.json file and spit out the json parsed data
   const savedNotes = new Store().read();
   savedNotes.then((data) => res.json(JSON.parse(data)));
+
 });
 
 // POST Route for saving note
@@ -35,6 +36,7 @@ if (req.body.title || req.body.text) {
 
 // DELETE Route for deleting note
 router.delete('/notes/:note_id', async (req, res) => {
+ try{
   // Log that a DELETE request was received
   console.info(`${req.method} request received to delete note`);
   const savedNotes = JSON.parse( await new Store().read());
@@ -48,6 +50,10 @@ router.delete('/notes/:note_id', async (req, res) => {
   } else {
     res.json('no note with that id');
   }
+} catch (err) {
+  console.log(err);
+  res.status(500).json(err);
+}
 });
 
 module.exports = router;

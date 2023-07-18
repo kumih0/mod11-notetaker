@@ -32,11 +32,13 @@ THEN I am presented with empty fields to enter a new note title and the note’s
 - Created the connections between the finished front-end starter code through routes
 - Separate files for html routes and api routes as outlined in hw readme
 - Created a helper folder and a store file to hold methods for reading/writing to db file, getting, adding, and deleting notes
-- imported the store methods to apiroutes
+- imported the store methods to apiroutes for get, post, and delete methods
+- converted store methods to async/await and used read and write methods to adjust notes stored in db file
+- successfully ran all routes through insomnia
 
 ## Deployed Live Link
 
-
+https://mod11-notetaker-d4e97ed85266.herokuapp.com/
 
 ## Github Repo Link
 
