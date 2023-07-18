@@ -1,4 +1,3 @@
-//this is where i am storing all my methods in a class constr. to make modularization easier and make sense to me
 //importing 
 const fs = require('fs');
 const util = require('util');
@@ -9,17 +8,18 @@ const writeFile = util.promisify(fs.writeFile);
 
 class Store {
   //read method
-  read(){
+  read() {
     return readFile('db/db.json', 'utf-8');
   };
 
   //write method
-  write(note){
+  write(note) {
     return writeFile('db/db.json', JSON.stringify(note), (err) => err ? console.log(err) : console.info(`Note written to db.json`));
   };
 
+
   //add note method that contains get notes method
-  addNote(note){
+  addNote = async (note) => {
     //destructuring note obj
     const { title, text } = note;
     const newNote = {
@@ -28,17 +28,28 @@ class Store {
       note_id: uuidv4(),//<-calling the uuid npm boi to run when that new note obj is made
     }
     console.log(newNote);
-    
-    //getnotes method> grabbing dbjson obj and push new note into array, stringfy the new array (done inside write method) and put it back w write method
-    const getNotes = () => {
-      return JSON.parse(read());
-    }
-    this.write(getNotes.push(newNote));
-    //method returns newnote obj so it can be passed into the res part of post method in apiroutes
-    return newNote;
+    //get notes as array of saved notes
+    const savedNotes = JSON.parse(await this.read());
+
+    //push new note into array, stringfy the new array and put it back w write method
+    savedNotes.push(newNote);
+    this.write(savedNotes);
+    //return new saved notes array 
+    return savedNotes;
   };
 
-  // deleteNote
+  //delete note method
+  deleteNote = async (note_id) => {
+    //grabbing the array of notes
+    const savedNotes = await this.getNotes();
+    //filtering out the note that matches the note_id that was passed in
+    const updatedNotes = savedNotes.filter((note) => note.note_id !== note_id);
+    //writing the updated array to the db.json file
+    this.write(updatedNotes);
+
+    return updatedNotes;
+  }
+
 }
 
 module.exports = Store;
