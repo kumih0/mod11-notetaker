@@ -33,24 +33,6 @@ class Store {
     //return new saved notes array 
     return savedNotes;
   };
-
-  //delete note method
-  deleteNote = async (note_id) => {
-    //grabbing the array of notes
-    const savedNotes = JSON.parse(await this.read());
-    //looping through the array
-    savedNotes.forEach((note, index) => {
-      //if the note id matches the id from the req params, splice it out of the array
-      if (note.note_id === note_id) {
-        savedNotes.splice(index, 1);
-      }
-    });
-    //write the new array to the db.json file
-    this.write(savedNotes);
-    //return the new array
-    return savedNotes;
-  }
-
 }
 
 module.exports = Store;

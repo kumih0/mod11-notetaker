@@ -39,17 +39,23 @@ router.delete('/notes/:note_id', async (req, res) => {
  try{
   // Log that a DELETE request was received
   console.info(`${req.method} request received to delete note`);
-  const savedNotes = JSON.parse( await new Store().read());
-
-//if there's a note with the req.params.id, delete it
-  if(savedNotes.find((note) => note.note_id === req.params.note_id)) {
-    //delete note method from store class, passing id from req params
-    const updatedNotes = await new Store().deleteNote(req.params.note_id);
-    //send back updated notes array
-    res.status(200).json(updatedNotes);
-  } else {
-    res.json('no note with that id');
+  const deleteNote = (note_id) => {
+    //grabbing the array of notes
+    const savedNotes = JSON.parse( new Store().read());
+    //looping through the array
+    savedNotes.forEach((note, index) => {
+      //if the note id matches the id from the req params, splice it out of the array
+      if (note.note_id === note_id) {
+        savedNotes.splice(index, 1);
+      }
+    });
+    //write the new array to the db.json file
+    new Store().write(savedNotes);
+    //return the new array
+    return savedNotes;
   }
+  const savedNotes = await deleteNote();
+  res.json(savedNotes);
 } catch (err) {
   console.log(err);
   res.status(500).json(err);
