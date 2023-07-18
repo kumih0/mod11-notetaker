@@ -3,13 +3,17 @@ const router = require('express').Router();
 const Store = require('../helpers/store');
 
 // GET Route for retrieving all saved notes
- router.get('/notes', (req, res) => {
+router.get('/notes', async (req, res) => {
   console.info(`${req.method} request received for notes`);
-  
-//using readfile method from store export to read db.json file and spit out the json parsed data
-  const savedNotes = new Store().read();
-  savedNotes.then((data) => res.json(JSON.parse(data)));
 
+  try {
+    //get the saved notes from the db.json file
+    const savedNotes = JSON.parse(await new Store().read());
+    res.json(savedNotes);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
 });
 
 // POST Route for saving note
@@ -26,11 +30,11 @@ if (req.body.title || req.body.text) {
     //adding to json file w response obj
     const response = {
       status: 'u done it',
-      body: req.body,
+      body: newNote,
     }
     res.json(response);
   } else {
-    res.json('what the heck r u doin! error in savin note!');
+    res.json('Error in posting note');
   }
 });
 
@@ -54,7 +58,7 @@ router.delete('/notes/:note_id', async (req, res) => {
     //return the new array
     return savedNotes;
   }
-  const savedNotes = await deleteNote();
+  const savedNotes = await deleteNote(req.params.note_id);
   res.json(savedNotes);
 } catch (err) {
   console.log(err);
