@@ -31,7 +31,8 @@ THEN I am presented with empty fields to enter a new note title and the note’s
 
 - Created the connections between the finished front-end starter code through routes
 - Separate files for html routes and api routes as outlined in hw readme
-- Created a helper folder and a store file to hold methods for getting, adding, 
+- Created a helper folder and a store file to hold methods for reading/writing to db file, getting, adding, and deleting notes
+- imported the store methods to apiroutes
 
 ## Deployed Live Link
 
